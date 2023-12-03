@@ -1,25 +1,24 @@
-import { useState, FunctionComponent } from "react";
+import React, { useState } from "react";
 
 const ENDPOINT = "https://api.openai.com/v1/chat/completions";
 
-import React from "react";
-
-interface TranslationFormProps {
-  onTranslate: (text: string) => void;
-}
-
-type TranslationForm = React.FC<TranslationFormProps>;
-
-const TranslationForm: TranslationForm = ({ onTranslate }) => {
+const TranslationForm: React.FC<{
+  onTranslate: (text: string, language: string) => void;
+}> = ({ onTranslate }) => {
   const [inputText, setInputText] = useState("");
+  const [selectedLanguage, setSelectedLanguage] = useState("sindarin");
 
-  const handleInputChange = (e: any) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputText(e.target.value);
   };
 
-  const handleSubmit = (e: any) => {
+  const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedLanguage(e.target.value);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onTranslate(inputText);
+    onTranslate(inputText, selectedLanguage);
   };
 
   return (
@@ -27,6 +26,13 @@ const TranslationForm: TranslationForm = ({ onTranslate }) => {
       <label>
         Enter your text:
         <input type="text" value={inputText} onChange={handleInputChange} />
+      </label>
+      <label>
+        Choose language:
+        <select value={selectedLanguage} onChange={handleLanguageChange}>
+          <option value="sindarin">Sindarin</option>
+          <option value="quenya">Quenya</option>
+        </select>
       </label>
       <button type="submit">Translate</button>
     </form>
@@ -39,7 +45,7 @@ const App = () => {
     quenya: "",
   });
 
-  const handleTranslate = async (text: string) => {
+  const handleTranslate = async (text: string, language: string) => {
     try {
       const response = await fetch(ENDPOINT, {
         method: "POST",
@@ -58,20 +64,17 @@ const App = () => {
         }),
       });
 
-      console.log("Response:", response.status, response.statusText);
-
       if (!response.ok) {
         throw new Error(`Translation request failed: ${response.statusText}`);
       }
 
       const data = await response.json();
+
       setTranslations({
-        sindarin:
+        ...translations,
+        [language]:
           data.choices[0]?.message?.content ||
-          "No Sindarin translation available",
-        quenya:
-          data.choices[1]?.message?.content ||
-          "No Quenya translation available",
+          `No ${language} translation available`,
       });
     } catch (error: any) {
       console.error("Error:", error.message);
