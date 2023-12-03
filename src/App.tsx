@@ -4,7 +4,8 @@ const ENDPOINT = "https://api.openai.com/v1/chat/completions";
 
 const TranslationForm: React.FC<{
   onTranslate: (text: string, language: string) => void;
-}> = ({ onTranslate }) => {
+  onLanguageChange: (language: string) => void;
+}> = ({ onTranslate, onLanguageChange }) => {
   const [inputText, setInputText] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState("sindarin");
 
@@ -13,7 +14,9 @@ const TranslationForm: React.FC<{
   };
 
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedLanguage(e.target.value);
+    const newLanguage = e.target.value;
+    setSelectedLanguage(newLanguage);
+    onLanguageChange(newLanguage);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -82,17 +85,26 @@ const App = () => {
 
       // Update the selected display language
       setSelectedDisplayLanguage(
-        language === "sindarin" ? "Sindarin" : "Quenya"
+        language.charAt(0).toUpperCase() + language.slice(1)
       );
     } catch (error: any) {
       console.error("Error:", error.message);
     }
   };
 
+  const handleLanguageChange = (language: string) => {
+    setSelectedDisplayLanguage(
+      language.charAt(0).toUpperCase() + language.slice(1)
+    );
+  };
+
   return (
     <div>
-      <h1>ChatGPT Translation App</h1>
-      <TranslationForm onTranslate={handleTranslate} />
+      <h1>Lord of the Rings Elvish Translator</h1>
+      <TranslationForm
+        onTranslate={handleTranslate}
+        onLanguageChange={handleLanguageChange}
+      />
       <div>
         <h2>{selectedDisplayLanguage}:</h2>
         <p>{translations[selectedDisplayLanguage.toLowerCase()]}</p>
