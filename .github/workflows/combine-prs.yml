@@ -19,7 +19,7 @@ jobs:
           node-version: '16'
 
       - name: Check out code
-        uses: actions/checkout@v2.5.0  # Use the latest version compatible with Node.js 16
+        uses: actions/github-script@v6
 
       - name: Merge Dependabot PRs
         id: merge-prs
