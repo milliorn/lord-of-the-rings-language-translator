@@ -1,34 +1,95 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useState } from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
+const ENDPOINT = "https://api.openai.com/v1/chat/completions";
 
-  return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+import React from "react";
+
+interface TranslationFormProps {
+  onTranslate: (text: string) => void;
 }
 
-export default App
+const TranslationForm: React.FC<TranslationFormProps> = ({ onTranslate }) => {
+  const [inputText, setInputText] = useState("");
+
+  const handleInputChange = (e: any) => {
+    setInputText(e.target.value);
+  };
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    onTranslate(inputText);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>
+        Enter your text:
+        <input type="text" value={inputText} onChange={handleInputChange} />
+      </label>
+      <button type="submit">Translate</button>
+    </form>
+  );
+};
+
+const App = () => {
+  const [translations, setTranslations] = useState({
+    sindarin: "",
+    quenya: "",
+  });
+
+  const handleTranslate = async (text: string) => {
+    try {
+      const response = await fetch(ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
+        },
+        body: JSON.stringify({
+          messages: [
+            {
+              role: "user",
+              content: text,
+            },
+          ],
+          model: "gpt-3.5-turbo",
+        }),
+      });
+
+      console.log("Response:", response.status, response.statusText);
+
+      if (!response.ok) {
+        throw new Error(`Translation request failed: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      setTranslations({
+        sindarin:
+          data.choices[0]?.message?.content ||
+          "No Sindarin translation available",
+        quenya:
+          data.choices[1]?.message?.content ||
+          "No Quenya translation available",
+      });
+    } catch (error: any) {
+      console.error("Error:", error.message);
+    }
+  };
+
+  return (
+    <div>
+      <h1>ChatGPT Translation App</h1>
+      <TranslationForm onTranslate={handleTranslate} />
+      <div>
+        <h2>Sindarin:</h2>
+        <p>{translations.sindarin}</p>
+      </div>
+      <div>
+        <h2>Quenya:</h2>
+        <p>{translations.quenya}</p>
+      </div>
+    </div>
+  );
+};
+
+export default App;
