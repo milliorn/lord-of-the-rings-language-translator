@@ -1,45 +1,22 @@
-name: Auto Merge and Close Branches
+name: auto-merge-dependabot
 
 on:
-  workflow_dispatch:
-  
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
 jobs:
-  merge_and_close:
+  auto-merge:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check out code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Install jq
-      run: sudo apt-get update && sudo apt-get install -y jq
-
-    - name: Set up Git
-      run: |
-        git config user.name "Your GitHub Username"
-        git config user.email "your.email@example.com"
-
-    - name: Merge PR
-      run: |
-        # Extract the pull request number from the GitHub event payload
-        PR_NUMBER=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
-
-        # Merge the PR
-        git fetch origin pull/$PR_NUMBER/head:pr-$PR_NUMBER
-        git checkout main
-        git merge pr-$PR_NUMBER --no-edit
-        git push origin main
-
-    - name: Close branches
-      run: |
-        # Extract the source and target branches from the PR
-        SOURCE_BRANCH=$(jq --raw-output .pull_request.head.ref "$GITHUB_EVENT_PATH")
-        TARGET_BRANCH=$(jq --raw-output .pull_request.base.ref "$GITHUB_EVENT_PATH")
-
-        # Delete the source branch
-        git push origin --delete $SOURCE_BRANCH
-
-        # Delete the target branch if it's not the main branch
-        if [ "$TARGET_BRANCH" != "main" ]; then
-          git push origin --delete $TARGET_BRANCH
-        fi
+      - name: Auto-merge Dependabot PRs
+        uses: ahmadnassri/action-dependabot-auto-merge@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          target: minor
+          config: .github/auto-merge.yml
