@@ -19,7 +19,7 @@ jobs:
           node-version: '16'
 
       - name: Check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout  # This will default to the latest compatible version, which is Node.js 16
 
       - name: Merge Dependabot PRs
         id: merge-prs
