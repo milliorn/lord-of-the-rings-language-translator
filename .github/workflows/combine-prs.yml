@@ -19,7 +19,7 @@ jobs:
           node-version: '16'
 
       - name: Check out code
-        uses: actions/checkout@v2.5.0  # Specify a version that supports Node.js 16
+        uses: actions/checkout@v2
 
       - name: Merge Dependabot PRs
         id: merge-prs
@@ -45,22 +45,34 @@ jobs:
             // Merge pull requests with a green status check
             for (const pull of pulls) {
               const prNumber = pull.number;
-              const status = await github.repos.getCombinedStatusForRef({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                ref: pull.head.sha,
-              });
 
-              if (status.data.state === 'success') {
-                console.log(`Merging PR #${prNumber} into ${branchToMergeInto}`);
-                await github.rest.repos.merge({
+              try {
+                const statusResponse = await github.repos.getCombinedStatusForRef({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
-                  base: branchToMergeInto,
-                  head: `refs/pull/${prNumber}/head`,
+                  ref: pull.head.sha,
                 });
-              } else {
-                console.log(`Skipping PR #${prNumber} because it does not have a green status.`);
+
+                if (!statusResponse.data) {
+                  console.log(`Skipping PR #${prNumber} because status information is not available.`);
+                  continue;
+                }
+
+                const status = statusResponse.data.state;
+
+                if (status === 'success') {
+                  console.log(`Merging PR #${prNumber} into ${branchToMergeInto}`);
+                  await github.rest.repos.merge({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    base: branchToMergeInto,
+                    head: `refs/pull/${prNumber}/head`,
+                  });
+                } else {
+                  console.log(`Skipping PR #${prNumber} because it does not have a green status.`);
+                }
+              } catch (error) {
+                console.error(`Error processing PR #${prNumber}:`, error.message);
               }
             }
         env:
