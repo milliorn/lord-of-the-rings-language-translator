@@ -51,6 +51,13 @@ const App = () => {
   const [translations, setTranslations] = useState<{ [key: string]: string }>({
     sindarin: "",
     quenya: "",
+    elvish: "",
+    khuzdul: "",
+    adunaic: "",
+    blackSpeech: "",
+    rohirric: "",
+    telerin: "",
+    westron: "",
   });
 
   const [selectedDisplayLanguage, setSelectedDisplayLanguage] =
@@ -67,11 +74,13 @@ const App = () => {
         body: JSON.stringify({
           messages: [
             {
-              role: "user",
-              content: `Translate the following English phrase into ${language}: ${text}`,
+              role: "system",
+              content: `Translate the following English text into ${language}: ${text}`,
             },
           ],
           model: "gpt-3.5-turbo",
+          temperature: 0,
+          max_tokens: 100,
         }),
       });
 
@@ -80,6 +89,7 @@ const App = () => {
       }
 
       const data = await response.json();
+      // console.log(data);
 
       setTranslations((prevTranslations) => ({
         ...prevTranslations,
