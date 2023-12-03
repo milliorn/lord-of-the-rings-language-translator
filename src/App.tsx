@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, FunctionComponent } from "react";
 
 const ENDPOINT = "https://api.openai.com/v1/chat/completions";
 
@@ -8,7 +8,9 @@ interface TranslationFormProps {
   onTranslate: (text: string) => void;
 }
 
-const TranslationForm: React.FC<TranslationFormProps> = ({ onTranslate }) => {
+type TranslationForm = React.FC<TranslationFormProps>;
+
+const TranslationForm: TranslationForm = ({ onTranslate }) => {
   const [inputText, setInputText] = useState("");
 
   const handleInputChange = (e: any) => {
