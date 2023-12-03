@@ -19,7 +19,7 @@ jobs:
           node-version: '16'
 
       - name: Check out code
-        uses: actions/github-script@v6
+        uses: actions/checkout@v2
 
       - name: Merge Dependabot PRs
         id: merge-prs
