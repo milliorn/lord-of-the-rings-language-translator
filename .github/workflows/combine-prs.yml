@@ -1,53 +1,51 @@
-name: Merge Dependabot PRs
+name: Combine PRs
 
 on:
-  workflow_dispatch:
-    inputs:
-      branch:
-        description: 'Branch to merge PRs into'
-        required: true
-        default: 'main'
+  push:
+    branches:
+      - main
 
 jobs:
   merge-dependabot-prs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: 16
 
-      - name: Check out code
-        uses: actions/checkout@v2
+      - name: Run script to merge PRs
+        run: |
+          const branchToMergeInto = 'main';
 
-      - name: Merge Dependabot PRs
-        id: merge-prs
-        uses: actions/github-script@v7
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const branchToMergeInto = '${{ github.event.inputs.branch }}';
-            
-            // Get open pull requests authored by dependabot
-            const pulls = await github.paginate('GET /repos/:owner/:repo/pulls', {
+          const pulls = await github.paginate(
+            {
+              method: 'GET',
+              url: '/repos/:owner/:repo/pulls',
               owner: context.repo.owner,
               repo: context.repo.repo,
               state: 'open',
               head: 'dependabot',
-            });
-
-            if (pulls.length === 0) {
-              console.log('No open pull requests authored by dependabot.');
-              return;
             }
+          );
 
-            // Merge pull requests with a green status check
+          if (pulls.length === 0) {
+            console.log('No open pull requests authored by dependabot.');
+          } else {
+            console.log(`Found ${pulls.length} open pull request(s) authored by dependabot.`);
+
             for (const pull of pulls) {
               const prNumber = pull.number;
 
               try {
-                const statusResponse = await github.repos.getCombinedStatusForRef({
+                console.log(`Checking status for PR #${prNumber} with sha ${pull.head.sha}`);
+                const statusResponse = await github.rest.repos.getCombinedStatusForRef({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   ref: pull.head.sha,
@@ -60,6 +58,8 @@ jobs:
 
                 const status = statusResponse.data.state;
 
+                console.log(`Status of PR #${prNumber}: ${status}`);
+
                 if (status === 'success') {
                   console.log(`Merging PR #${prNumber} into ${branchToMergeInto}`);
                   await github.rest.repos.merge({
@@ -68,6 +68,7 @@ jobs:
                     base: branchToMergeInto,
                     head: `refs/pull/${prNumber}/head`,
                   });
+                  console.log(`PR #${prNumber} merged successfully.`);
                 } else {
                   console.log(`Skipping PR #${prNumber} because it does not have a green status.`);
                 }
@@ -75,5 +76,6 @@ jobs:
                 console.error(`Error processing PR #${prNumber}:`, error.message);
               }
             }
+          }
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
