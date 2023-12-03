@@ -40,10 +40,13 @@ const TranslationForm: React.FC<{
 };
 
 const App = () => {
-  const [translations, setTranslations] = useState({
+  const [translations, setTranslations] = useState<{ [key: string]: string }>({
     sindarin: "",
     quenya: "",
   });
+
+  const [selectedDisplayLanguage, setSelectedDisplayLanguage] =
+    useState("Sindarin");
 
   const handleTranslate = async (text: string, language: string) => {
     try {
@@ -70,12 +73,17 @@ const App = () => {
 
       const data = await response.json();
 
-      setTranslations({
-        ...translations,
+      setTranslations((prevTranslations) => ({
+        ...prevTranslations,
         [language]:
           data.choices[0]?.message?.content ||
           `No ${language} translation available`,
-      });
+      }));
+
+      // Update the selected display language
+      setSelectedDisplayLanguage(
+        language === "sindarin" ? "Sindarin" : "Quenya"
+      );
     } catch (error: any) {
       console.error("Error:", error.message);
     }
@@ -86,12 +94,8 @@ const App = () => {
       <h1>ChatGPT Translation App</h1>
       <TranslationForm onTranslate={handleTranslate} />
       <div>
-        <h2>Sindarin:</h2>
-        <p>{translations.sindarin}</p>
-      </div>
-      <div>
-        <h2>Quenya:</h2>
-        <p>{translations.quenya}</p>
+        <h2>{selectedDisplayLanguage}:</h2>
+        <p>{translations[selectedDisplayLanguage.toLowerCase()]}</p>
       </div>
     </div>
   );
