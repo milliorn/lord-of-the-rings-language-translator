@@ -33,8 +33,13 @@ const TranslationForm: React.FC<{
       <label>
         Choose language:
         <select value={selectedLanguage} onChange={handleLanguageChange}>
-          <option value="sindarin">Sindarin</option>
+          <option value="adunaic">Adûnaic</option>
+          <option value="black-speech">Black Speech</option>
           <option value="quenya">Quenya</option>
+          <option value="rohirric">Rohirric</option>
+          <option value="sindarin">Sindarin</option>
+          <option value="telerin">Telerin</option>
+          <option value="westron">Westron</option>
         </select>
       </label>
       <button type="submit">Translate</button>
@@ -63,7 +68,7 @@ const App = () => {
           messages: [
             {
               role: "user",
-              content: text,
+              content: `Translate the following English phrase into ${language}: ${text}`,
             },
           ],
           model: "gpt-3.5-turbo",
@@ -100,7 +105,7 @@ const App = () => {
 
   return (
     <div>
-      <h1>Lord of the Rings Elvish Translator</h1>
+      <h1>Lord of the Rings Language Translator</h1>
       <TranslationForm
         onTranslate={handleTranslate}
         onLanguageChange={handleLanguageChange}
