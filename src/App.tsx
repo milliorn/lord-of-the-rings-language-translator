@@ -121,8 +121,10 @@ const App = () => {
         onLanguageChange={handleLanguageChange}
       />
       <div>
-        <h2>{selectedDisplayLanguage}:</h2>
-        <p>{translations[selectedDisplayLanguage.toLowerCase()]}</p>
+        <h2>
+          {selectedDisplayLanguage}:{" "}
+          <span>{translations[selectedDisplayLanguage.toLowerCase()]}</span>
+        </h2>
       </div>
     </div>
   );
