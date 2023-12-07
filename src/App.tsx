@@ -18,25 +18,25 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.grey[200],
     display: "flex",
     flexDirection: "column",
-    height: "100vh",
     justifyContent: "center",
-    lineHeight: 1.5,
+    minHeight: "100vh", // Ensure the container takes at least the full height of the viewport
     textAlign: "center",
   },
   form: {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
-    margin: theme.spacing(2),
+    margin: theme.spacing(1),
   },
   input: {
-    color: theme.palette.grey[100],
-    margin: theme.spacing(2),
+    margin: theme.spacing(1),
+    width: "100%",
     "& label.Mui-focused": {
       color: theme.palette.grey[100],
     },
     "& .MuiInputBase-input": {
       color: theme.palette.grey[100],
+      textAlign: "center",
     },
     "& .MuiInput-underline:after": {
       borderBottomColor: theme.palette.grey[100],
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     color: theme.palette.grey[100],
-    margin: theme.spacing(2),
+    margin: theme.spacing(1),
   },
   text: {
     color: theme.palette.grey[100],
@@ -52,6 +52,9 @@ const useStyles = makeStyles((theme) => ({
   select: {
     color: theme.palette.grey[100],
     "&:before": {
+      borderColor: theme.palette.grey[100],
+    },
+    "&:after": {
       borderColor: theme.palette.grey[100],
     },
   },
@@ -87,7 +90,7 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
 
   return (
     <form className={classes.form} onSubmit={handleSubmit}>
-      <Typography variant="h6" className={classes.text}>
+      <Typography variant="h3" className={classes.text}>
         Enter your text:
       </Typography>
       <TextField
@@ -97,7 +100,7 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
         onChange={handleInputChange}
       />
       <FormControl className={classes.input}>
-        <Typography variant="h6" className={classes.text}>
+        <Typography variant="h4" className={classes.text}>
           Choose language:
         </Typography>
         <Select
@@ -170,6 +173,7 @@ const App = () => {
       }
 
       const data = await response.json();
+
       setTranslations((prevTranslations) => ({
         ...prevTranslations,
         [language]:
