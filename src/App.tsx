@@ -14,8 +14,8 @@ const ENDPOINT = "https://api.openai.com/v1/chat/completions";
 const useStyles = makeStyles((theme) => ({
   root: {
     alignItems: "center",
-    backgroundColor: theme.palette.grey[500],
-    color: theme.palette.grey[200],
+    backgroundColor: theme.palette.success.contrastText,
+    color: theme.palette.primary.contrastText,
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -29,21 +29,13 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   },
   input: {
+    backgroundColor: theme.palette.grey[100],
     margin: theme.spacing(1),
     width: "100%",
-    "& label.Mui-focused": {
-      color: theme.palette.grey[100],
-    },
-    "& .MuiInputBase-input": {
-      color: theme.palette.grey[100],
-      textAlign: "center",
-    },
-    "& .MuiInput-underline:after": {
-      borderBottomColor: theme.palette.grey[100],
-    },
   },
   button: {
-    color: theme.palette.grey[100],
+    backgroundColor: theme.palette.success.contrastText,
+    color: theme.palette.primary.contrastText,
     margin: theme.spacing(1),
   },
   text: {
@@ -122,6 +114,7 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
         type="submit"
         variant="contained"
         color="primary"
+        size="large"
       >
         Translate
       </Button>
