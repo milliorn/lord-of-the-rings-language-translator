@@ -2,10 +2,10 @@ import React, { ChangeEvent, FormEvent, useState } from "react";
 
 // Material UI imports
 import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
 import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -14,12 +14,13 @@ const ENDPOINT = "https://api.openai.com/v1/chat/completions";
 const useStyles = makeStyles((theme) => ({
   root: {
     alignItems: "center",
-    backgroundColor: theme.palette.grey[900],
-    color: theme.palette.grey[100],
+    backgroundColor: theme.palette.grey[500],
+    color: theme.palette.grey[200],
     display: "flex",
     flexDirection: "column",
     height: "100vh",
-    margin: theme.spacing(2),
+    justifyContent: "center",
+    lineHeight: 1.5,
     textAlign: "center",
   },
   form: {
@@ -28,20 +29,31 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     margin: theme.spacing(2),
   },
-  label: {
-    color: theme.palette.grey[100],
-    margin: theme.spacing(2),
-  },
   input: {
     color: theme.palette.grey[100],
     margin: theme.spacing(2),
     "& label.Mui-focused": {
       color: theme.palette.grey[100],
     },
+    "& .MuiInputBase-input": {
+      color: theme.palette.grey[100],
+    },
+    "& .MuiInput-underline:after": {
+      borderBottomColor: theme.palette.grey[100],
+    },
   },
   button: {
     color: theme.palette.grey[100],
     margin: theme.spacing(2),
+  },
+  text: {
+    color: theme.palette.grey[100],
+  },
+  select: {
+    color: theme.palette.grey[100],
+    "&:before": {
+      borderColor: theme.palette.grey[100],
+    },
   },
 }));
 
@@ -75,7 +87,9 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
 
   return (
     <form className={classes.form} onSubmit={handleSubmit}>
-      <InputLabel className={classes.label}>Enter your text:</InputLabel>
+      <Typography variant="h6" className={classes.text}>
+        Enter your text:
+      </Typography>
       <TextField
         className={classes.input}
         type="text"
@@ -83,8 +97,14 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
         onChange={handleInputChange}
       />
       <FormControl className={classes.input}>
-        <InputLabel>Choose language:</InputLabel>
-        <Select value={selectedLanguage} onChange={handleLanguageChange}>
+        <Typography variant="h6" className={classes.text}>
+          Choose language:
+        </Typography>
+        <Select
+          className={classes.select}
+          value={selectedLanguage}
+          onChange={handleLanguageChange}
+        >
           <MenuItem value="adunaic">Adûnaic</MenuItem>
           <MenuItem value="black-speech">Black Speech</MenuItem>
           <MenuItem value="quenya">Quenya</MenuItem>
@@ -150,8 +170,6 @@ const App = () => {
       }
 
       const data = await response.json();
-      // console.log(data);
-
       setTranslations((prevTranslations) => ({
         ...prevTranslations,
         [language]:
@@ -176,14 +194,21 @@ const App = () => {
 
   return (
     <div className={classes.root}>
-      <h1>Lord of the Rings Language Translator</h1>
+      <Typography variant="h1">Lord of the Rings</Typography>
+      <Typography variant="h2" className={classes.text}>
+        Language Translator
+      </Typography>
       <TranslationForm
         onTranslate={handleTranslate}
         onLanguageChange={handleLanguageChange}
       />
       <div>
-        <h2>{selectedDisplayLanguage}: </h2>
-        <p>{translations[selectedDisplayLanguage.toLowerCase()]}</p>
+        <Typography variant="h2" className={classes.text}>
+          {selectedDisplayLanguage}:
+        </Typography>
+        <Typography variant="body1">
+          {translations[selectedDisplayLanguage.toLowerCase()]}
+        </Typography>
       </div>
     </div>
   );
