@@ -10,44 +10,58 @@ import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 
 const ENDPOINT = "https://api.openai.com/v1/chat/completions";
+const IMG_URL =
+  "https://pbs.twimg.com/profile_images/1436179704776519691/2cAVr6la_400x400.jpg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     alignItems: "center",
-    backgroundColor: theme.palette.success.contrastText,
+    backgroundImage: `url(${IMG_URL})`,
+    backgroundSize: "cover",
     color: theme.palette.primary.contrastText,
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    minHeight: "100vh", // Ensure the container takes at least the full height of the viewport
+    minHeight: "100vh",
     textAlign: "center",
+    padding: theme.spacing(4),
   },
   form: {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
-    margin: theme.spacing(1),
+    margin: theme.spacing(2),
+    borderRadius: theme.spacing(1),
+    padding: theme.spacing(3),
   },
   input: {
-    backgroundColor: theme.palette.grey[100],
-    margin: theme.spacing(1),
+    margin: theme.spacing(2),
     width: "100%",
+    color: "white",
+    "& .MuiInput-underline:before": {
+      borderBottomColor: "white",
+    },
+  },
+  inputUnderline: {
+    "&:before": {
+      borderBottomColor: "white",
+    },
   },
   button: {
-    backgroundColor: theme.palette.success.contrastText,
+    backgroundColor: theme.palette.success.main,
     color: theme.palette.primary.contrastText,
-    margin: theme.spacing(1),
+    margin: theme.spacing(2),
   },
   text: {
-    color: theme.palette.grey[100],
+    color: theme.palette.primary.contrastText,
   },
   select: {
-    color: theme.palette.grey[100],
+    color: theme.palette.primary.contrastText,
     "&:before": {
-      borderColor: theme.palette.grey[100],
+      borderColor: theme.palette.primary.contrastText,
     },
     "&:after": {
-      borderColor: theme.palette.grey[100],
+      borderColor: theme.palette.primary.contrastText,
     },
   },
 }));
@@ -90,6 +104,12 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
         type="text"
         value={inputText}
         onChange={handleInputChange}
+        InputProps={{
+          classes: {
+            underline: classes.inputUnderline, // Use inputUnderline instead of underline
+          },
+          style: { color: "white" },
+        }}
       />
       <FormControl className={classes.input}>
         <Typography variant="h4" className={classes.text}>
