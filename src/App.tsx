@@ -41,6 +41,9 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiInput-underline:before": {
       borderBottomColor: "white",
     },
+    "& .MuiInput-underline:after": {
+      borderBottomColor: "white",
+    },
   },
   inputUnderline: {
     "&:before": {
@@ -51,9 +54,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.success.main,
     color: theme.palette.primary.contrastText,
     margin: theme.spacing(2),
-  },
-  text: {
-    color: theme.palette.primary.contrastText,
   },
   select: {
     color: theme.palette.primary.contrastText,
@@ -96,9 +96,7 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
 
   return (
     <form className={classes.form} onSubmit={handleSubmit}>
-      <Typography variant="h3" className={classes.text}>
-        Enter your text:
-      </Typography>
+      <Typography variant="h3">Enter your text:</Typography>
       <TextField
         className={classes.input}
         type="text"
@@ -112,9 +110,7 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
         }}
       />
       <FormControl className={classes.input}>
-        <Typography variant="h4" className={classes.text}>
-          Choose language:
-        </Typography>
+        <Typography variant="h3">Choose language:</Typography>
         <Select
           className={classes.select}
           value={selectedLanguage}
@@ -212,21 +208,14 @@ const App = () => {
   return (
     <div className={classes.root}>
       <Typography variant="h1">Lord of the Rings</Typography>
-      <Typography variant="h2" className={classes.text}>
-        Language Translator
-      </Typography>
+      <Typography variant="h2">Language Translator</Typography>
       <TranslationForm
         onTranslate={handleTranslate}
         onLanguageChange={handleLanguageChange}
       />
-      <div>
-        <Typography variant="h2" className={classes.text}>
-          {selectedDisplayLanguage}:
-        </Typography>
-        <Typography variant="body1">
-          {translations[selectedDisplayLanguage.toLowerCase()]}
-        </Typography>
-      </div>
+      <Typography variant="h3">
+        {translations[selectedDisplayLanguage.toLowerCase()]}
+      </Typography>
     </div>
   );
 };
