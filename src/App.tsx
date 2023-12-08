@@ -57,6 +57,8 @@ const useStyles = makeStyles((theme) => ({
   },
   select: {
     color: theme.palette.primary.contrastText,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
     "&:before": {
       borderColor: theme.palette.primary.contrastText,
     },
