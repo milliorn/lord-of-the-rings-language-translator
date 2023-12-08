@@ -11,7 +11,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const ENDPOINT = "https://api.openai.com/v1/chat/completions";
 const IMG_URL =
-  "https://pbs.twimg.com/profile_images/1436179704776519691/2cAVr6la_400x400.jpg";
+  "https://images.unsplash.com/photo-1519872436884-4a50eb5a62db?q=80&w=1335&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
 const useStyles = makeStyles((theme) => ({
   root: {
