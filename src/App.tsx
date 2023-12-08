@@ -44,6 +44,9 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiInput-underline:after": {
       borderBottomColor: "white",
     },
+    "& input": {
+      textAlign: "center", // Center the text input
+    },
   },
   inputUnderline: {
     "&:before": {
