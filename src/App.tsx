@@ -64,6 +64,10 @@ const useStyles = makeStyles((theme) => ({
       borderColor: theme.palette.primary.contrastText,
     },
   },
+  typography: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
 }));
 
 interface TranslationFormProps {
@@ -110,7 +114,9 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
         }}
       />
       <FormControl className={classes.input}>
-        <Typography variant="h3">Choose language:</Typography>
+        <Typography variant="h3" className={classes.typography}>
+          Choose language:
+        </Typography>
         <Select
           className={classes.select}
           value={selectedLanguage}
