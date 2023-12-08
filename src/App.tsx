@@ -213,12 +213,13 @@ const App = () => {
 
   return (
     <div className={classes.root}>
-      <Typography variant="h1">Lord of the Rings</Typography>
-      <Typography variant="h2">Language Translator</Typography>
+      <Typography variant="h2">Lord of the Rings</Typography>
+
       <TranslationForm
         onTranslate={handleTranslate}
         onLanguageChange={handleLanguageChange}
       />
+
       <Typography variant="h3">
         {translations[selectedDisplayLanguage.toLowerCase()]}
       </Typography>
