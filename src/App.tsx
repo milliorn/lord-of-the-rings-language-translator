@@ -143,6 +143,7 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
         variant="contained"
         color="primary"
         size="large"
+        style={{ fontFamily: "GaramondRegular, serif" }}
       >
         Translate
       </Button>
