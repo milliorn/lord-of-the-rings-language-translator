@@ -10,8 +10,8 @@ import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 
 const ENDPOINT = "https://api.openai.com/v1/chat/completions";
-const IMG_URL =
-  "https://images.unsplash.com/photo-1519872436884-4a50eb5a62db?q=80&w=1335&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+//   "https://images.unsplash.com/photo-1519872436884-4a50eb5a62db?q=80&w=1335&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+const IMG_URL = "/background.avif";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     minHeight: "100vh",
     textAlign: "center",
-    padding: theme.spacing(4),
+    padding: theme.spacing(2),
   },
   form: {
     alignItems: "center",
@@ -69,10 +69,7 @@ const useStyles = makeStyles((theme) => ({
       borderColor: theme.palette.primary.contrastText,
     },
   },
-  typography: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
+  typography: {},
 }));
 
 interface TranslationFormProps {
@@ -218,7 +215,10 @@ const App = () => {
 
   return (
     <div className={classes.root}>
-      <Typography variant="h2">Lord of the Rings</Typography>
+      <Typography variant="subtitle1">The</Typography>
+      <Typography variant="h2">Lord</Typography>
+      <Typography variant="subtitle1">of the</Typography>
+      <Typography variant="h2">Rings</Typography>
 
       <TranslationForm
         onTranslate={handleTranslate}
