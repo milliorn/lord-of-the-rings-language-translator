@@ -1,3 +1,13 @@
+@font-face {
+  font-family: "GaramondRegular";
+  src: url("fonts/EBGaramond-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "IMFellDWPica";
+  src: url("fonts/IMFellDWPica-Regular.ttf") format("truetype");
+}
+
 :root {
   font-synthesis: none;
   text-rendering: optimizeLegibility;

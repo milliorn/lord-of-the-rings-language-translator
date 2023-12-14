@@ -10,7 +10,6 @@ import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 
 const ENDPOINT = "https://api.openai.com/v1/chat/completions";
-//   "https://images.unsplash.com/photo-1519872436884-4a50eb5a62db?q=80&w=1335&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 const IMG_URL = "/background.avif";
 
 const useStyles = makeStyles((theme) => ({
@@ -69,7 +68,10 @@ const useStyles = makeStyles((theme) => ({
       borderColor: theme.palette.primary.contrastText,
     },
   },
-  typography: {},
+  typography: {
+    fontFamily: "IMFellDWPica, serif",
+    marginBottom: theme.spacing(1),
+  },
 }));
 
 interface TranslationFormProps {
@@ -102,7 +104,9 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
 
   return (
     <form className={classes.form} onSubmit={handleSubmit}>
-      <Typography variant="h3">Enter your text:</Typography>
+      <Typography variant="h3" style={{ fontFamily: "IMFellDWPica, serif" }}>
+        Enter your text:
+      </Typography>
       <TextField
         className={classes.input}
         type="text"
@@ -215,17 +219,39 @@ const App = () => {
 
   return (
     <div className={classes.root}>
-      <Typography variant="subtitle1">The</Typography>
-      <Typography variant="h2">Lord</Typography>
-      <Typography variant="subtitle1">of the</Typography>
-      <Typography variant="h2">Rings</Typography>
+      <Typography
+        variant="subtitle2"
+        style={{
+          fontSize: "2rem",
+          marginBottom: "-2rem",
+          fontFamily: "GaramondRegular, serif",
+        }}
+      >
+        The
+      </Typography>
+      <Typography variant="h1" style={{ fontFamily: "GaramondRegular, serif" }}>
+        Lord
+      </Typography>
+      <Typography
+        variant="subtitle2"
+        style={{
+          fontSize: "2rem",
+          marginBottom: "-2rem",
+          fontFamily: "GaramondRegular, serif",
+        }}
+      >
+        of the
+      </Typography>
+      <Typography variant="h1" style={{ fontFamily: "GaramondRegular, serif" }}>
+        Rings
+      </Typography>
 
       <TranslationForm
         onTranslate={handleTranslate}
         onLanguageChange={handleLanguageChange}
       />
 
-      <Typography variant="h3">
+      <Typography variant="h3" style={{ fontFamily: "IMFellDWPica, serif" }}>
         {translations[selectedDisplayLanguage.toLowerCase()]}
       </Typography>
     </div>
