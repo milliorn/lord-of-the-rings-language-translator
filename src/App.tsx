@@ -22,21 +22,21 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "center",
     minHeight: "100vh",
-    textAlign: "center",
     padding: theme.spacing(2),
+    textAlign: "center",
   },
   form: {
     alignItems: "center",
+    borderRadius: theme.spacing(1),
     display: "flex",
     flexDirection: "column",
     margin: theme.spacing(2),
-    borderRadius: theme.spacing(1),
     padding: theme.spacing(3),
   },
   input: {
+    color: "white",
     margin: theme.spacing(2),
     width: "100%",
-    color: "white",
     "& .MuiInput-underline:before": {
       borderBottomColor: "white",
     },
@@ -59,8 +59,8 @@ const useStyles = makeStyles((theme) => ({
   },
   select: {
     color: theme.palette.primary.contrastText,
-    marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(1),
     "&:before": {
       borderColor: theme.palette.primary.contrastText,
     },
@@ -83,9 +83,10 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
   onTranslate,
   onLanguageChange,
 }) => {
-  const classes = useStyles();
   const [inputText, setInputText] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState("sindarin");
+
+  const classes = useStyles();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputText(e.target.value);
@@ -93,8 +94,8 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
 
   const handleLanguageChange = (e: ChangeEvent<{ value: unknown }>) => {
     const newLanguage = e.target.value as string;
-    setSelectedLanguage(newLanguage);
     onLanguageChange(newLanguage);
+    setSelectedLanguage(newLanguage);
   };
 
   const handleSubmit = (e: FormEvent) => {
@@ -109,9 +110,9 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
       </Typography>
       <TextField
         className={classes.input}
+        onChange={handleInputChange}
         type="text"
         value={inputText}
-        onChange={handleInputChange}
         InputProps={{
           classes: {
             underline: classes.inputUnderline, // Use inputUnderline instead of underline
@@ -139,10 +140,10 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
       </FormControl>
       <Button
         className={classes.button}
-        type="submit"
-        variant="contained"
         color="primary"
         size="large"
+        type="submit"
+        variant="contained"
         style={{ fontFamily: "GaramondRegular, serif" }}
       >
         Translate
@@ -184,9 +185,9 @@ const App = () => {
               content: `Translate the following English text into ${language}: ${text}`,
             },
           ],
+          max_tokens: 100,
           model: "gpt-3.5-turbo",
           temperature: 0,
-          max_tokens: 100,
         }),
       });
 
@@ -223,9 +224,9 @@ const App = () => {
       <Typography
         variant="subtitle2"
         style={{
+          fontFamily: "GaramondRegular, serif",
           fontSize: "2rem",
           marginBottom: "-2rem",
-          fontFamily: "GaramondRegular, serif",
         }}
       >
         The
@@ -236,9 +237,9 @@ const App = () => {
       <Typography
         variant="subtitle2"
         style={{
+          fontFamily: "GaramondRegular, serif",
           fontSize: "2rem",
           marginBottom: "-2rem",
-          fontFamily: "GaramondRegular, serif",
         }}
       >
         of the
