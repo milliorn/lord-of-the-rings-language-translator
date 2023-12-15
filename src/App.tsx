@@ -2,15 +2,17 @@ import React, { ChangeEvent, FormEvent, useState } from "react";
 
 // Material UI imports
 import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
 import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
 const ENDPOINT = "https://api.openai.com/v1/chat/completions";
 const IMG_URL = "/background.avif";
+const SOURCE_CODE_URL =
+  "https://github.com/milliorn/lord-of-the-rings-language-translator";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -71,6 +73,9 @@ const useStyles = makeStyles((theme) => ({
   typography: {
     fontFamily: "IMFellDWPica, serif",
     marginBottom: theme.spacing(1),
+  },
+  footer: {
+    marginTop: theme.spacing(6),
   },
 }));
 
@@ -256,6 +261,32 @@ const App = () => {
       <Typography variant="h3" style={{ fontFamily: "IMFellDWPica, serif" }}>
         {translations[selectedDisplayLanguage.toLowerCase()]}
       </Typography>
+
+      <div className={classes.footer}>
+        <Typography variant="body2">
+          Powered by{" "}
+          <a
+            href="https://www.openai.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "white", fontFamily: "GaramondRegular, serif" }}
+          >
+            OpenAI
+          </a>
+        </Typography>
+
+        <Typography variant="body2">
+          Souce code @{" "}
+          <a
+            href={SOURCE_CODE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "white", fontFamily: "GaramondRegular, serif" }}
+          >
+            Github
+          </a>
+        </Typography>
+      </div>
     </div>
   );
 };
