@@ -106,7 +106,7 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
   return (
     <form className={classes.form} onSubmit={handleSubmit}>
       <Typography variant="h3" style={{ fontFamily: "IMFellDWPica, serif" }}>
-        Enter your text:
+        Enter your text
       </Typography>
       <TextField
         className={classes.input}
@@ -122,7 +122,7 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
       />
       <FormControl className={classes.input}>
         <Typography variant="h3" className={classes.typography}>
-          Choose language:
+          Choose language
         </Typography>
         <Select
           className={classes.select}
