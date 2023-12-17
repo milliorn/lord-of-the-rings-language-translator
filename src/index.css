@@ -1,13 +1,29 @@
+/**
+ * Defines a custom font face for the "GaramondRegular" font family.
+ * The font file is located at "fonts/EBGaramond-Regular.ttf" and is in TrueType format.
+ */
 @font-face {
   font-family: "GaramondRegular";
   src: url("fonts/EBGaramond-Regular.ttf") format("truetype");
 }
 
+/**
+ * Defines a custom font face for the "IMFellDWPica" font family.
+ * The font file is located at "fonts/IMFellDWPica-Regular.ttf".
+ * The format of the font file is "truetype".
+ */
 @font-face {
   font-family: "IMFellDWPica";
   src: url("fonts/IMFellDWPica-Regular.ttf") format("truetype");
 }
 
+/**
+ * - The `font-synthesis` property is set to `none` to disable font synthesis, which prevents the browser from creating faux bold or italic versions of the font.
+ * - The `text-rendering` property is set to `optimizeLegibility` to optimize text rendering for legibility, especially at small sizes.
+ * - The `-webkit-font-smoothing` property is set to `antialiased` to enable antialiased font smoothing in WebKit browsers.
+ * - The `-moz-osx-font-smoothing` property is set to `grayscale` to enable grayscale font smoothing in Firefox on macOS.
+ * - The `-webkit-text-size-adjust` property is set to `100%` to disable automatic text size adjustment in WebKit browsers.
+ */
 :root {
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -16,6 +32,9 @@
   -webkit-text-size-adjust: 100%;
 }
 
+/**
+ * It sets the margin of the body to 0, removing any default margin.
+ */
 body {
   margin: 0;
 }
