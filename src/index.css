@@ -1,20 +1,17 @@
 /**
  * Defines a custom font face for the "GaramondRegular" font family.
- * The font file is located at "fonts/EBGaramond-Regular.ttf" and is in TrueType format.
  */
 @font-face {
   font-family: "GaramondRegular";
-  src: url("fonts/EBGaramond-Regular.ttf") format("truetype");
+  src: url("assets/fonts/EBGaramond-Regular.ttf") format("truetype");
 }
 
 /**
  * Defines a custom font face for the "IMFellDWPica" font family.
- * The font file is located at "fonts/IMFellDWPica-Regular.ttf".
- * The format of the font file is "truetype".
  */
 @font-face {
   font-family: "IMFellDWPica";
-  src: url("fonts/IMFellDWPica-Regular.ttf") format("truetype");
+  src: url("assets/fonts/IMFellDWPica-Regular.ttf") format("truetype");
 }
 
 /**
