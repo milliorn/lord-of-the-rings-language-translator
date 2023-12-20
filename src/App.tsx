@@ -9,6 +9,7 @@ import Select from "@material-ui/core/Select";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import { InputLabel } from "@material-ui/core";
 
 /**
  * The endpoint for the chat completions API.
@@ -127,21 +128,23 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
 }) => {
   const [inputText, setInputText] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState("sindarin");
-
+  const [labelVisible, setLabelVisible] = useState(true); // State to control label visibility
+  
   /**
    * The CSS classes for the component.
    */
   const classes = useStyles();
 
-  /**
+/**
    * Handles the change event of the input element.
    * @param e The change event object.
    */
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputText(e.target.value);
+    if (labelVisible) setLabelVisible(false); // Hide label when typing starts
   };
 
-  /**
+/**
    * Handles the change event of the select element.
    * @param e The change event object.
    */
@@ -151,7 +154,7 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
     setSelectedLanguage(newLanguage);
   };
 
-  /**
+/**
    * Handles the submit event of the form element.
    * @param e The submit event object.
    */
@@ -165,18 +168,32 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
       <Typography variant="h3" style={{ fontFamily: "IMFellDWPica, serif" }}>
         Enter your text
       </Typography>
-      <TextField
-        className={classes.input}
-        onChange={handleInputChange}
-        type="text"
-        value={inputText}
-        InputProps={{
-          classes: {
-            underline: classes.inputUnderline, // Use inputUnderline instead of underline
-          },
-          style: { color: "white" },
-        }}
-      />
+
+      <FormControl className={classes.input}>
+        <InputLabel
+          htmlFor="text-input"
+          style={{
+            color: "white",
+            display: labelVisible ? "block" : "none", // Control visibility based on state
+          }}
+        >
+          Click and type here
+        </InputLabel>
+        <TextField
+          id="text-input"
+          className={classes.input}
+          onChange={handleInputChange}
+          type="text"
+          value={inputText}
+          InputProps={{
+            classes: {
+              underline: classes.inputUnderline, // Use inputUnderline instead of underline
+            },
+            style: { color: "white" },
+          }}
+        />
+      </FormControl>
+
       <FormControl className={classes.input}>
         <Typography variant="h3" className={classes.typography}>
           Choose language
@@ -195,6 +212,7 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
           <MenuItem value="westron">Westron</MenuItem>
         </Select>
       </FormControl>
+
       <Button
         className={classes.button}
         color="primary"
@@ -216,12 +234,12 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
  * @returns {React.ReactElement} The rendered App component.
  */
 const App = () => {
-  /**
+/**
    * The CSS classes for the component.
    */
   const classes = useStyles();
 
-  /**
+/**
    * The translations state.
    */
   const [translations, setTranslations] = useState<{ [key: string]: string }>({
@@ -236,13 +254,13 @@ const App = () => {
     westron: "",
   });
 
-  /**
+/**
    * The selected display language state.
    */
   const [selectedDisplayLanguage, setSelectedDisplayLanguage] =
     useState("Sindarin");
 
-  /**
+/**
    * Translates the given text to the specified language.
    *
    * @param text The text to be translated.
@@ -270,7 +288,7 @@ const App = () => {
         }),
       });
 
-      /**
+/**
        * Checks if the response is not ok and throws an error with the status text.
        * @param {Response} response - The response object from the translation request.
        * @throws {Error} - Throws an error with the status text if the response is not ok.
@@ -279,13 +297,13 @@ const App = () => {
         throw new Error(`Translation request failed: ${response.statusText}`);
       }
 
-      /**
+/**
        * Parses the response body as JSON and assigns it to the 'data' variable.
        * @returns {Promise<any>} A promise that resolves to the parsed JSON data.
        */
       const data = await response.json();
 
-      /**
+/**
        * Checks if the response contains an error and throws an error with the error message.
        * @param {any} data - The parsed JSON data from the translation request.
        * @throws {Error} - Throws an error with the error message if the response contains an error.
@@ -295,7 +313,7 @@ const App = () => {
         throw new Error(`Translation request failed: ${data.error.message}`);
       }
 
-      /**
+/**
        * Checks if the response contains any choices and throws an error if it doesn't.
        * @param {any} data - The parsed JSON data from the translation request.
        * @throws {Error} - Throws an error if the response contains no choices.
@@ -308,7 +326,7 @@ const App = () => {
           `No ${language} translation available`,
       }));
 
-      /**
+/**
        * Sets the selected display language.
        * @param {string} language - The language to set as the selected display language.
        */
@@ -320,7 +338,7 @@ const App = () => {
     }
   };
 
-  /**
+/**
    * Handles the change event of the select element.
    * @param {string} language - The selected language.
    */
