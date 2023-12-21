@@ -165,7 +165,10 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
 
   return (
     <form className={classes.form} onSubmit={handleSubmit}>
-      <Typography variant="h3" style={{ fontFamily: "IMFellDWPica, serif" }}>
+      <Typography
+        variant="h2"
+        style={{ fontFamily: "IMFellDWPica, serif", fontSize: "3rem" }}
+      >
         Enter your text
       </Typography>
 
@@ -352,11 +355,11 @@ const App = () => {
   return (
     <div className={classes.root}>
       <Typography
-        variant="subtitle2"
+        variant="h1"
         style={{
           fontFamily: "GaramondRegular, serif",
           fontSize: "2rem",
-          marginBottom: "-2rem",
+          marginBottom: "-1rem",
         }}
       >
         The
@@ -365,11 +368,11 @@ const App = () => {
         Lord
       </Typography>
       <Typography
-        variant="subtitle2"
+        variant="h1"
         style={{
           fontFamily: "GaramondRegular, serif",
           fontSize: "2rem",
-          marginBottom: "-2rem",
+          marginBottom: "-1rem",
         }}
       >
         of the
