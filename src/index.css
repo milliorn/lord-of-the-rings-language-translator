@@ -4,6 +4,7 @@
 @font-face {
   font-family: "GaramondRegular";
   src: url("assets/fonts/EBGaramond-Regular.ttf") format("truetype");
+  font-display: swap;
 }
 
 /**
@@ -12,6 +13,7 @@
 @font-face {
   font-family: "IMFellDWPica";
   src: url("assets/fonts/IMFellDWPica-Regular.ttf") format("truetype");
+  font-display: swap;
 }
 
 /**
@@ -34,4 +36,11 @@
  */
 body {
   margin: 0;
+}
+
+/**
+ * The opacity property is set to 0.8 to make the placeholder text slightly transparent.
+ */
+#text-input::placeholder {
+  opacity: 0.8;
 }

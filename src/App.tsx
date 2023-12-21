@@ -9,6 +9,7 @@ import Select from "@material-ui/core/Select";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import { InputLabel } from "@material-ui/core";
 
 /**
  * The endpoint for the chat completions API.
@@ -127,6 +128,7 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
 }) => {
   const [inputText, setInputText] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState("sindarin");
+  const [labelVisible, setLabelVisible] = useState(true); // State to control label visibility
 
   /**
    * The CSS classes for the component.
@@ -139,6 +141,7 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
    */
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputText(e.target.value);
+    if (labelVisible) setLabelVisible(false); // Hide label when typing starts
   };
 
   /**
@@ -162,25 +165,43 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
 
   return (
     <form className={classes.form} onSubmit={handleSubmit}>
-      <Typography variant="h3" style={{ fontFamily: "IMFellDWPica, serif" }}>
+      <Typography
+        variant="h2"
+        style={{ fontFamily: "IMFellDWPica, serif", fontSize: "3rem" }}
+      >
         Enter your text
       </Typography>
-      <TextField
-        className={classes.input}
-        onChange={handleInputChange}
-        type="text"
-        value={inputText}
-        InputProps={{
-          classes: {
-            underline: classes.inputUnderline, // Use inputUnderline instead of underline
-          },
-          style: { color: "white" },
-        }}
-      />
+
+      <FormControl className={classes.input}>
+        <InputLabel
+          htmlFor="text-input"
+          style={{
+            color: "white",
+            display: labelVisible ? "block" : "none", // Control visibility based on state
+          }}
+        ></InputLabel>
+
+        <TextField
+          id="text-input"
+          placeholder="Click and type here"
+          className={classes.input}
+          onChange={handleInputChange}
+          type="text"
+          value={inputText}
+          InputProps={{
+            classes: {
+              underline: classes.inputUnderline, // Use inputUnderline instead of underline
+            },
+            style: { color: "white" },
+          }}
+        />
+      </FormControl>
+
       <FormControl className={classes.input}>
         <Typography variant="h3" className={classes.typography}>
           Choose language
         </Typography>
+
         <Select
           className={classes.select}
           value={selectedLanguage}
@@ -195,6 +216,7 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
           <MenuItem value="westron">Westron</MenuItem>
         </Select>
       </FormControl>
+
       <Button
         className={classes.button}
         color="primary"
@@ -333,11 +355,11 @@ const App = () => {
   return (
     <div className={classes.root}>
       <Typography
-        variant="subtitle2"
+        variant="h1"
         style={{
           fontFamily: "GaramondRegular, serif",
           fontSize: "2rem",
-          marginBottom: "-2rem",
+          marginBottom: "-1rem",
         }}
       >
         The
@@ -346,11 +368,11 @@ const App = () => {
         Lord
       </Typography>
       <Typography
-        variant="subtitle2"
+        variant="h1"
         style={{
           fontFamily: "GaramondRegular, serif",
           fontSize: "2rem",
-          marginBottom: "-2rem",
+          marginBottom: "-1rem",
         }}
       >
         of the
