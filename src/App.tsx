@@ -183,6 +183,7 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
 
         <TextField
           id="text-input"
+          name="text" // Add this line
           placeholder="Click and type here"
           className={classes.input}
           onChange={handleInputChange}
@@ -190,7 +191,7 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
           value={inputText}
           InputProps={{
             classes: {
-              underline: classes.inputUnderline, // Use inputUnderline instead of underline
+              underline: classes.inputUnderline,
             },
             style: { color: "white" },
           }}
@@ -203,6 +204,8 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
         </Typography>
 
         <Select
+          id="language-select"
+          name="language" // Add this line
           className={classes.select}
           value={selectedLanguage}
           onChange={handleLanguageChange}

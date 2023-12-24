@@ -4,7 +4,7 @@
 @font-face {
   font-family: "GaramondRegular";
   src: url("assets/fonts/EBGaramond-Regular.ttf") format("truetype");
-  font-display: swap;
+  font-display: optional; /* Instead of swap */
 }
 
 /**
@@ -13,7 +13,7 @@
 @font-face {
   font-family: "IMFellDWPica";
   src: url("assets/fonts/IMFellDWPica-Regular.ttf") format("truetype");
-  font-display: swap;
+  font-display: optional; /* Instead of swap */
 }
 
 /**
