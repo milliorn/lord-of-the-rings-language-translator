@@ -44,3 +44,44 @@ body {
 #text-input::placeholder {
   opacity: 0.8;
 }
+
+#font-garamondRegular {
+  font-family: "GaramondRegular", serif;
+}
+
+#font-imFellDWPica {
+  font-family: "IMFellDWPica", serif;
+}
+
+#garamondRegular-white {
+  color: white;
+  font-family: "GaramondRegular", serif;
+}
+
+#garamondRegular-title {
+  font-family: "GaramondRegular, serif";
+  font-size: 2rem;
+  margin-bottom: "-1rem";
+}
+
+#garamondRegular-title2 {
+  font-family: "GaramondRegular, serif";
+  font-size: 2rem;
+  margin-bottom: "-1rem";
+}
+
+#iIMFellDWPica-h2 {
+  font-family: "IMFellDWPica", serif;
+  font-size: 3rem;
+}
+
+#text-input {
+  color: white;
+  font-family: "GaramondRegular", serif;
+  font-size: 1.5rem; /* 24px */
+  line-height: 2rem; /* 32px */
+}
+
+#iIMFellDWPica-h3 {
+  font-family: "IMFellDWPica", serif;
+}
