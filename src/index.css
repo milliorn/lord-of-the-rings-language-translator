@@ -45,7 +45,8 @@ body {
   opacity: 0.8;
 }
 
-#font-garamondRegular {
+#font-garamondRegularLord,
+#font-garamondRegularRings {
   font-family: "GaramondRegular", serif;
 }
 
@@ -53,7 +54,8 @@ body {
   font-family: "IMFellDWPica", serif;
 }
 
-#garamondRegular-white {
+#garamondRegular-whiteAI,
+#garamondRegular-whiteGithub {
   color: white;
   font-family: "GaramondRegular", serif;
 }

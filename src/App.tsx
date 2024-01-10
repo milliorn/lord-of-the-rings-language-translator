@@ -351,13 +351,13 @@ const App = () => {
       <Typography variant="h1" id="garamondRegular-title">
         The
       </Typography>
-      <Typography variant="h1" id="font-garamondRegular">
+      <Typography variant="h1" id="font-garamondRegularLord">
         Lord
       </Typography>
       <Typography variant="h1" id="garamondRegular-title2">
         of the
       </Typography>
-      <Typography variant="h1" id="font-garamondRegular">
+      <Typography variant="h1" id="font-garamondRegularRings">
         Rings
       </Typography>
 
@@ -377,7 +377,7 @@ const App = () => {
             href="https://www.openai.com/"
             target="_blank"
             rel="noopener noreferrer"
-            id="garamondRegular-white"
+            id="garamondRegular-whiteAI"
           >
             OpenAI
           </a>
@@ -389,7 +389,7 @@ const App = () => {
             href={SOURCE_CODE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            id="garamondRegular-white"
+            id="garamondRegular-whiteGithub"
           >
             Github
           </a>
