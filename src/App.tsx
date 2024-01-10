@@ -165,10 +165,7 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
 
   return (
     <form className={classes.form} onSubmit={handleSubmit}>
-      <Typography
-        variant="h2"
-        style={{ fontFamily: "IMFellDWPica, serif", fontSize: "3rem" }}
-      >
+      <Typography variant="h2" id="iIMFellDWPica-h2">
         Enter your text
       </Typography>
 
@@ -183,17 +180,12 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
 
         <TextField
           id="text-input"
+          name="text" // Add this line
           placeholder="Click and type here"
           className={classes.input}
           onChange={handleInputChange}
           type="text"
           value={inputText}
-          InputProps={{
-            classes: {
-              underline: classes.inputUnderline, // Use inputUnderline instead of underline
-            },
-            style: { color: "white" },
-          }}
         />
       </FormControl>
 
@@ -203,6 +195,8 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
         </Typography>
 
         <Select
+          id="language-select"
+          name="language" // Add this line
           className={classes.select}
           value={selectedLanguage}
           onChange={handleLanguageChange}
@@ -223,7 +217,7 @@ const TranslationForm: React.FC<TranslationFormProps> = ({
         size="large"
         type="submit"
         variant="contained"
-        style={{ fontFamily: "GaramondRegular, serif" }}
+        id="font-garamondRegular"
       >
         Translate
       </Button>
@@ -354,30 +348,16 @@ const App = () => {
 
   return (
     <div className={classes.root}>
-      <Typography
-        variant="h1"
-        style={{
-          fontFamily: "GaramondRegular, serif",
-          fontSize: "2rem",
-          marginBottom: "-1rem",
-        }}
-      >
+      <Typography variant="h1" id="garamondRegular-title">
         The
       </Typography>
-      <Typography variant="h1" style={{ fontFamily: "GaramondRegular, serif" }}>
+      <Typography variant="h1" id="font-garamondRegularLord">
         Lord
       </Typography>
-      <Typography
-        variant="h1"
-        style={{
-          fontFamily: "GaramondRegular, serif",
-          fontSize: "2rem",
-          marginBottom: "-1rem",
-        }}
-      >
+      <Typography variant="h1" id="garamondRegular-title2">
         of the
       </Typography>
-      <Typography variant="h1" style={{ fontFamily: "GaramondRegular, serif" }}>
+      <Typography variant="h1" id="font-garamondRegularRings">
         Rings
       </Typography>
 
@@ -386,7 +366,7 @@ const App = () => {
         onLanguageChange={handleLanguageChange}
       />
 
-      <Typography variant="h3" style={{ fontFamily: "IMFellDWPica, serif" }}>
+      <Typography variant="h3" id="iIMFellDWPica-h3">
         {translations[selectedDisplayLanguage.toLowerCase()]}
       </Typography>
 
@@ -397,7 +377,7 @@ const App = () => {
             href="https://www.openai.com/"
             target="_blank"
             rel="noopener noreferrer"
-            style={{ color: "white", fontFamily: "GaramondRegular, serif" }}
+            id="garamondRegular-whiteAI"
           >
             OpenAI
           </a>
@@ -409,7 +389,7 @@ const App = () => {
             href={SOURCE_CODE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            style={{ color: "white", fontFamily: "GaramondRegular, serif" }}
+            id="garamondRegular-whiteGithub"
           >
             Github
           </a>
