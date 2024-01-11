@@ -35,6 +35,7 @@
  * It sets the margin of the body to 0, removing any default margin.
  */
 body {
+  background-image: url("/background.avif");
   margin: 0;
 }
 

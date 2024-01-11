@@ -19,7 +19,7 @@ const ENDPOINT = "https://api.openai.com/v1/chat/completions";
 /**
  * The URL for the background image.
  */
-const IMG_URL = "/background.avif";
+// const IMG_URL = "/background.avif";
 
 /**
  * The URL for the source code repository.
@@ -35,7 +35,7 @@ const SOURCE_CODE_URL =
 const useStyles = makeStyles((theme) => ({
   root: {
     alignItems: "center",
-    backgroundImage: `url(${IMG_URL})`,
+    // backgroundImage: `url(${IMG_URL})`,
     backgroundSize: "cover",
     color: theme.palette.primary.contrastText,
     display: "flex",
